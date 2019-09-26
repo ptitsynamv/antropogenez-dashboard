@@ -100,17 +100,17 @@
     "@angular-devkit/core" "7.3.9"
     rxjs "6.3.3"
 
-"@angular/animations@~7.2.0":
-  version "7.2.15"
-  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-7.2.15.tgz#980c1f523a79d4b7cb44508f57fba06f2e0872fa"
-  integrity sha512-8oBt3HLgd2+kyJHUgsd7OzKCCss67t2sch15XNoIWlOLfxclqU+EfFE6t/vCzpT8/+lpZS6LU9ZrTnb+UBj5jg==
+"@angular/animations@^8.2.8":
+  version "8.2.8"
+  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-8.2.8.tgz#5ad0f0db0825b8a6fd46a240f45e3213e32ff732"
+  integrity sha512-Ye4umCQ82PbzbslqgxgI2Dhhg5VEEbDCgHbMx8x/gPEBkW5VED0CLxQknNtqNk1DPHZ656gdhOP9iygRGajFxA==
   dependencies:
     tslib "^1.9.0"
 
-"@angular/cdk@~7.3.7":
-  version "7.3.7"
-  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-7.3.7.tgz#ce1ad53ba04beb9c8e950acc5691ea0143753764"
-  integrity sha512-xbXxhHHKGkVuW6K7pzPmvpJXIwpl0ykBnvA2g+/7Sgy5Pd35wCC+UtHD9RYczDM/mkygNxMQtagyCErwFnDtQA==
+"@angular/cdk@^8.2.1":
+  version "8.2.1"
+  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-8.2.1.tgz#3dc2648fe8255098940c9f9a16a271f422571d51"
+  integrity sha512-Y6xTxESrQlWw1kvSVWAs9cfeN/sYThrc/S9Ll4vekNkYSzye4mHHmDxzsKeGLR1tP+7urXTVz6xo44YUWVE7mw==
   dependencies:
     tslib "^1.7.1"
   optionalDependencies:
@@ -166,10 +166,10 @@
   dependencies:
     tslib "^1.9.0"
 
-"@angular/core@~7.2.0":
-  version "7.2.15"
-  resolved "https://registry.yarnpkg.com/@angular/core/-/core-7.2.15.tgz#c00d4be0ebe95b70f7631154169509cc97934e9a"
-  integrity sha512-XsuYm0jEU/mOqwDOk2utThv8J9kESkAerfuCHClE9rB2TtHUOGCfekF7lJWqjjypu6/J9ygoPFo7hdAE058ZGg==
+"@angular/core@^8.2.8":
+  version "8.2.8"
+  resolved "https://registry.yarnpkg.com/@angular/core/-/core-8.2.8.tgz#ed51b122ba62348f1277f4168ab5ea4263e7fe5a"
+  integrity sha512-LlHgqlDCt+vO/B6LBZtDfSrzTqaB5w/gp3ZWUVrPjeY5GDky6P0ZSVTnRL/uUi49wBFJehMaNoGEoORqnQBOLA==
   dependencies:
     tslib "^1.9.0"
 
@@ -185,10 +185,10 @@
   resolved "https://registry.yarnpkg.com/@angular/language-service/-/language-service-7.2.15.tgz#b2ba33e472dc5e530047c408ff7a35deba4427b8"
   integrity sha512-Ig5Jr7mnDelaZvSbUd9YhI5am3q1ku9xelAuwvtyDKvQJeKQj3BtTagcOgWrnQBfrJ/FsA/M5Zo48ncSsV0tqQ==
 
-"@angular/material@^7.3.7":
-  version "7.3.7"
-  resolved "https://registry.yarnpkg.com/@angular/material/-/material-7.3.7.tgz#dcd95e6618ba6254c5880efee1aad349cf5b9140"
-  integrity sha512-Eq+7frkeNGkLOfEtmkmJgR+AgoWajOipXZWWfCSamNfpCcPof82DwvGOpAmgGni9FuN2XFQdqP5MoaffQzIvUA==
+"@angular/material@^8.2.1":
+  version "8.2.1"
+  resolved "https://registry.yarnpkg.com/@angular/material/-/material-8.2.1.tgz#d57575715c0659a713c0eb9e65292e46923ad28d"
+  integrity sha512-A3PbyVoj2Ao3h21YJSl1zCJahxnaipUKDG8wetCuqw8Ph8Qf5v+VtLfRXY2aYIp7HEBbAhuisrW9S2r+aVq7Ww==
   dependencies:
     tslib "^1.7.1"
 
@@ -4641,6 +4641,13 @@ neo-async@^2.5.0, neo-async@^2.6.0:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
   integrity sha512-iyam8fBuCUpWeKPGpaNMetEocMt364qkCsfL9JuhjXX6dRnguRVOfk2GZaDpPjcOKiiXCPINZC1GczQ7iTq3Zw==
+
+ngx-toastr@^11.0.0:
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/ngx-toastr/-/ngx-toastr-11.0.0.tgz#dcdad7846267ba51ad88e89a73a6d17348ae8978"
+  integrity sha512-WO+dVaGufn+kAtBnHl7s9ruDwDdJ5+vLJsaZO6tMKwavsgPLycl2iymVgUkQssEsRUYUKBix0Af4pjN0JZVOtw==
+  dependencies:
+    tslib "^1.9.0"
 
 nice-try@^1.0.4:
   version "1.0.5"

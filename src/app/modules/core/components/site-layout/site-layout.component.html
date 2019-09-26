@@ -3,7 +3,6 @@
     <div *ngFor="let link of links">
       <a
         mat-stroked-button
-        color="accent"
         [routerLink]="[link.url]"
       >
         {{link.name}}
@@ -13,7 +12,6 @@
     <div>
       <button
         mat-stroked-button
-        color="accent"
         (click)="logout()"
       >
         Выйти

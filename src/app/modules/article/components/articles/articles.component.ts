@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ArticleService} from "../../services/article.service";
 import {Subscription} from "rxjs";
-import {Article, ArticleResponse} from "../../interfaces/interfaces";
+import {Article, ArticleList} from "../../interfaces/interfaces";
 import {Router} from "@angular/router";
 import {Title} from "@angular/platform-browser";
 
@@ -14,24 +14,23 @@ export class ArticlesComponent implements OnInit, OnDestroy {
   articles: Article[];
   isLoading = true;
   subscriptions: Subscription[] = [];
-  totalSize = 100;
+  count;
   pageSize = 10;
-  currentPage = 0;
 
   constructor(
     protected articleService: ArticleService,
     protected router: Router,
     protected titleService: Title
   ) {
+    titleService.setTitle('Статьи');
   }
 
   ngOnInit() {
     this.subscriptions.push(
-      this.articleService.getArticles()
-        .subscribe((articleResponse: ArticleResponse) => {
-          this.articles = articleResponse.data;
-          this.totalSize = articleResponse.totalSize;
-          this.titleService.setTitle('Статьи');
+      this.articleService.getArticles(0, this.pageSize)
+        .subscribe((articleList: ArticleList) => {
+          this.articles = articleList.list;
+          this.count = articleList.count;
           this.isLoading = false;
         })
     )
@@ -47,15 +46,14 @@ export class ArticlesComponent implements OnInit, OnDestroy {
   }
 
   handlePage(e: any) {
-    this.currentPage = e.pageIndex;
-    console.log(this.currentPage)
+    this.iterator(e.pageIndex)
   }
 
-  iterator() {
+  protected iterator(offset = 0) {
     this.subscriptions.push(
-      this.articleService.getArticles()
-        .subscribe((articleResponse: ArticleResponse) => {
-          this.articles = articleResponse.data;
+      this.articleService.getArticles(offset)
+        .subscribe((articleList: ArticleList) => {
+          this.articles = articleList.list;
         })
     )
   }

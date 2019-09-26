@@ -3,7 +3,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
 import {Subscription} from "rxjs/internal/Subscription";
-import {MaterialService} from "../../../core/services/material.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-register-page',
@@ -15,7 +15,9 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
   aSub: Subscription;
 
   constructor(private auth: AuthService,
-              private router: Router) {
+              private router: Router,
+              private toastr: ToastrService
+              ) {
   }
 
   ngOnInit() {
@@ -42,7 +44,7 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
         })
       },
       error => {
-        MaterialService.toast(error.error.message);
+        this.toastr.error(error.error.message);
         this.form.enable()
       }
     )

@@ -3,7 +3,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {Subscription} from "rxjs";
 import {ActivatedRoute, Params, Router} from "@angular/router";
-import {MaterialService} from "../../../core/services/material.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-login-page',
@@ -16,23 +16,25 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 
   constructor(private auth: AuthService,
               private router: Router,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private toastr: ToastrService,
+              ) {
   }
 
   ngOnInit() {
     this.form = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, [Validators.required, Validators.minLength(5)])
-    })
+    });
 
     this.route.queryParams.subscribe(
       (params: Params) => {
         if (params['registered']) {
-          MaterialService.toast('now you can login in the system with you creads')
+          this.toastr.success('now you can login in the system with you creads')
         } else if (params['accessDenied']) {
-          MaterialService.toast('You must authorize in the system')
+          this.toastr.error('You must authorize in the system')
         } else if (params['cessionFailed']) {
-          MaterialService.toast('Please, login in the system')
+          this.toastr.error('Please, login in the system')
         }
       }
     )
@@ -49,7 +51,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     this.aSub = this.auth.login(this.form.value).subscribe(
       () => this.router.navigate(['/articles']),
       error => {
-        MaterialService.toast(error.error.message);
+        this.toastr.error(error.error.message);
         this.form.enable()
       }
     )

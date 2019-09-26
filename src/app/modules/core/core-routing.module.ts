@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {LoginPageComponent} from "./components/login-page/login-page.component";
 import {RegisterPageComponent} from "./components/register-page/register-page.component";
 import {RouterModule, Routes} from "@angular/router";
-import {AuthLayoutComponent} from "../core/components/auth-layout/auth-layout.component";
+import {AuthLayoutComponent} from "./components/auth-layout/auth-layout.component";
 
 const routes: Routes = [
   {
@@ -25,6 +25,6 @@ const routes: Routes = [
   ]
 })
 
-export class AuthRoutingModule {
+export class CoreRoutingModule {
 
 }
