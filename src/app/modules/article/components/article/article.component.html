@@ -1,0 +1,9 @@
+<section *ngIf="!isLoading">
+  <div class="date">
+    <mat-chip-list>
+      <mat-chip>{{article.date}}</mat-chip>
+    </mat-chip-list>
+  </div>
+  <div class="article-text" [innerHTML]="article.text">
+  </div>
+</section>

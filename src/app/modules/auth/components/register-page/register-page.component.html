@@ -1,0 +1,99 @@
+<div class="form-wrap">
+  <form
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+  >
+
+    <p class="title">
+      Создать аккаунт
+    </p>
+
+    <div>
+      <mat-form-field>
+        <input
+          matInput
+          id="email"
+          type="email"
+          formControlName="email"
+          placeholder="Email"
+          [ngClass]="{'invalid' : form.get('email').invalid && form.get('email').touched}"
+        >
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <input
+          matInput
+          id="password"
+          type="password"
+          formControlName="password"
+          placeholder="Password"
+          [ngClass]="{'invalid' :form.get('password').invalid && form.get('password').touched}"
+        >
+      </mat-form-field>
+    </div>
+
+    <div>
+      <button
+        mat-stroked-button
+        color="primary"
+        type="submit"
+        class="modal-action btn waves-effect"
+        [disabled]="form.invalid || form.disabled"
+      >
+        Войти
+      </button>
+    </div>
+
+  </form>
+</div>
+
+
+
+
+<!--<form-->
+  <!--[formGroup]="form"-->
+  <!--(ngSubmit)="onSubmit()"-->
+  <!--class="card"-->
+<!--&gt;-->
+  <!--<div class="card-content">-->
+    <!--<span class="card-title">Создать аккаунт</span>-->
+    <!--<div class="input-field">-->
+      <!--<input-->
+        <!--id="email"-->
+        <!--type="email"-->
+        <!--formControlName="email"-->
+        <!--[ngClass]="{'invalid' : form.get('email').invalid && form.get('email').touched}"-->
+      <!--&gt;-->
+      <!--<label for="email">Email:</label>-->
+      <!--<span *ngIf="form.get('email').invalid && form.get('email').touched" class="helper-text red-text">-->
+      <!--<span *ngIf="form.get('email').errors['required']">Email cant be empty</span>-->
+<!--<span *ngIf="form.get('email').errors['email']">Email is not correct</span>-->
+    <!--</span>-->
+    <!--</div>-->
+    <!--<div class="input-field">-->
+      <!--<input-->
+        <!--id="password"-->
+        <!--type="password"-->
+        <!--formControlName="password"-->
+        <!--[ngClass]="{'invalid' :form.get('password').invalid && form.get('password').touched}"-->
+      <!--&gt;-->
+      <!--<label for="password">Пароль:</label>-->
+      <!--<span class="helper-text red-text" *ngIf="form.get('password').invalid && form.get('password').touched">-->
+      <!--<span *ngIf="form.get('password').errors['required']">Password cant be empty</span>-->
+      <!--<span-->
+        <!--*ngIf="form.get('password').errors['minlength'] && form.get('password').errors['minlength']['requiredLength']">Password must be > then {{form.get('password').errors['minlength']['requiredLength']}} symbols</span>-->
+  <!--</span>-->
+    <!--</div>-->
+  <!--</div>-->
+  <!--<div class="card-action">-->
+    <!--<button-->
+      <!--type="submit"-->
+      <!--class="modal-action btn waves-effect"-->
+      <!--[disabled]="form.invalid || form.disabled"-->
+    <!--&gt;-->
+      <!--Создать-->
+    <!--</button>-->
+  <!--</div>-->
+<!--</form>-->
