@@ -1,32 +1,57 @@
-import {ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot} from "@angular/router";
+import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from "@angular/router";
 import {Observable} from "rxjs";
 import {Injectable} from "@angular/core";
-import {AuthService} from "../services/auth.service";
 import {of} from "rxjs/internal/observable/of";
+import {catchError, map, mergeMap} from "rxjs/operators";
+import {Auth2Service} from "../services/auth2-service";
 
-@Injectable({
-  providedIn: "root"
-})
-export class AuthGuard implements CanActivate, CanActivateChild {
-  constructor(private auth: AuthService,
-              private router: Router) {
+enum AuthorizeScenario {
+  authorize = 'authorize',
+  userIsAuthorized = 'userIsAuthorized',
+  userIsNotAuthorized = 'userIsNotAuthorized',
+}
+
+@Injectable()
+export class AuthGuard implements CanActivate {
+  constructor(
+    protected router: Router,
+    protected authService: Auth2Service,
+  ) {
 
   }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    if (this.auth.isAuthtenticated()) {
-      return of(true)
-    } else {
-      this.router.navigate(['/login'], {
-        queryParams: {
-          accessDenied: true
-        }
-      })
-    }
-    return of(false)
+  protected onNotLogin(): boolean {
+    // this.authService.logout();
+    // this.authService.login();
+    // return false;
+    return true;
   }
 
-  canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    return this.canActivate(route, state)
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    return of(Boolean(route.fragment && /access_token.+token_type.+state/.test(route.fragment)))
+      .pipe(
+        map((isAuthorizeScenario) => {
+          if (!isAuthorizeScenario) {
+            if (!this.authService.hasValidToken()) {
+              return AuthorizeScenario.userIsNotAuthorized;
+            } else {
+              return AuthorizeScenario.userIsAuthorized;
+            }
+          }
+          return AuthorizeScenario.authorize;
+        }),
+        mergeMap((scenario) => {
+          switch (scenario) {
+            case AuthorizeScenario.authorize:
+              return this.authService.tryLogin();
+            case AuthorizeScenario.userIsAuthorized:
+              return of(true);
+            case AuthorizeScenario.userIsNotAuthorized:
+              return of(false);
+          }
+        }),
+        map((isSuccess: boolean) => isSuccess ? true : this.onNotLogin()),
+        catchError(() => of(this.onNotLogin())),
+      );
   }
 }

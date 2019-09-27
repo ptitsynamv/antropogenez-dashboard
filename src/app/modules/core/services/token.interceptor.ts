@@ -5,28 +5,23 @@ import {Observable} from "rxjs";
 import {catchError} from "rxjs/operators";
 import {throwError} from "rxjs/internal/observable/throwError";
 import {Router} from "@angular/router";
+import {Auth2Service} from "./auth2-service";
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
   constructor(
-    private auth: AuthService,
+    private auth: Auth2Service,
     private router: Router
   ) {
 
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (this.auth.isAuthtenticated()) {
-      req = req.clone({
-        setHeaders: {
-          Authorization: this.auth.getToken()
-        }
-      });
-    }
+    // TODO
     return next.handle(req).pipe(
-      catchError(
-        (error: HttpErrorResponse) => this.handleAuthError(error)
-      )
+      // catchError(
+      //   (error: HttpErrorResponse) => this.handleAuthError(error)
+      // )
     );
   }
 
