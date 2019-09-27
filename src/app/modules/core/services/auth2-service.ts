@@ -13,7 +13,7 @@ export class Auth2Service {
   ) {
     const authConfig: AuthConfig = {
       redirectUri: window.location.origin + '/articles',
-      clientId: 'abc123',
+      clientId: 'antropogenez-client-id',
       responseType: 'token',
       scope: 'api',
       showDebugInformation: true,
