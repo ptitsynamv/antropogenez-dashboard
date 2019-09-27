@@ -1,0 +1,50 @@
+<div class="form-wrap">
+  <form
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+  >
+
+    <p class="title">
+      Войти в систему
+    </p>
+
+    <div class="btn-wrap">
+      <mat-form-field>
+        <input
+          matInput
+          id="email"
+          type="email"
+          formControlName="email"
+          placeholder="Email"
+          [ngClass]="{'invalid' : form.get('email').invalid && form.get('email').touched}"
+        >
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <input
+          matInput
+          id="password"
+          type="password"
+          formControlName="password"
+          placeholder="Password"
+          [ngClass]="{'invalid' :form.get('password').invalid && form.get('password').touched}"
+        >
+      </mat-form-field>
+    </div>
+
+    <div>
+      <button
+        mat-stroked-button
+        color="primary"
+        type="submit"
+        class="modal-action btn waves-effect"
+        [disabled]="form.invalid || form.disabled"
+      >
+        Войти
+      </button>
+    </div>
+
+  </form>
+</div>

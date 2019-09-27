@@ -1,0 +1,26 @@
+<ng-container>
+  <div class="menu-wrap">
+    <div *ngFor="let link of links">
+      <a
+        mat-stroked-button
+        [routerLink]="[link.url]"
+      >
+        {{link.name}}
+      </a>
+    </div>
+
+    <div>
+      <button
+        mat-stroked-button
+        (click)="logout()"
+      >
+        Выйти
+      </button>
+    </div>
+  </div>
+
+  <div class="content-wrap">
+    <router-outlet></router-outlet>
+  </div>
+</ng-container>
+
