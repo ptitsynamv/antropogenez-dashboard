@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {AuthLayoutComponent} from "./components/auth-layout/auth-layout.component";
-import {SiteLayoutComponent} from "./components/site-layout/site-layout.component";
+import {AuthLayoutComponent} from "./components/layouts/auth-layout/auth-layout.component";
+import {SiteLayoutComponent} from "./components/layouts/site-layout/site-layout.component";
 import {RouterModule} from "@angular/router";
 import {MatNativeDateModule} from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
