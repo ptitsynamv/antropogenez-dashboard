@@ -2,31 +2,34 @@ import {Injectable} from "@angular/core";
 import {from, Observable, of} from "rxjs";
 import {catchError} from "rxjs/operators";
 import {AuthConfig, JwksValidationHandler, OAuthEvent, OAuthService} from "angular-oauth2-oidc";
+import {environment} from "../../../../environments/environment";
+import {action, computed, observable} from "mobx";
+import {fromMobx} from "../../../store/getters";
 
 @Injectable({
   providedIn: 'root',
 })
 
 export class Auth2Service {
+  @computed
+  public get userProfile$(): Observable<any> {
+    // const a = !this.oauthService.getIdentityClaims() ? this.loadUserProfile() : of(this.oauthService.getIdentityClaims());
+    // return a;
+    of(null)
+  };
+
   constructor(
     protected oauthService: OAuthService,
   ) {
     const authConfig: AuthConfig = {
       redirectUri: window.location.origin + '/articles',
       clientId: 'antropogenez-client-id',
-      responseType: 'token',
-      scope: 'api',
       showDebugInformation: true,
-      oidc: false,
       timeoutFactor: 0.8,
       requireHttps: false,
+      issuer: environment.auth2Url + '/oauth2',
 
-      issuer: 'http://localhost:3001',
-      loginUrl: 'http://localhost:3001/oauth2/authorize',
-      userinfoEndpoint: 'http://localhost:3001/user/userinfo',
-      // silentRefreshRedirectUri: 'http://localhost:3001/silentRefreshRedirectUri',
-      // logoutUrl: 'http://localhost:3001logout',
-      // postLogoutRedirectUri: 'http://localhost:3001/dashboard',
+      oidc: false,
     };
 
     oauthService.events.subscribe((event: OAuthEvent) => {
@@ -41,16 +44,19 @@ export class Auth2Service {
         case 'user_profile_load_error':
           // this.isError.next(true);
           break;
+        case 'discovery_document_loaded':
+          this.loadUserProfile();
+          break;
         case 'logout':
           break;
       }
-      // TODO delete debug data
       console.warn('event', event);
     });
 
     oauthService.configure(authConfig);
     oauthService.setupAutomaticSilentRefresh();
     oauthService.tokenValidationHandler = new JwksValidationHandler();
+    oauthService.loadDiscoveryDocument();
   }
 
   public login(): void {
@@ -69,6 +75,7 @@ export class Auth2Service {
     return from(this.oauthService.tryLogin());
   }
 
+  @action
   public loadUserProfile() {
     // @ts-ignore
     return from(this.oauthService.loadUserProfile())
@@ -80,9 +87,4 @@ export class Auth2Service {
   public getIdentityClaims() {
     return this.oauthService.getIdentityClaims();
   }
-
-  public authorizationHeader() {
-    return this.oauthService.authorizationHeader();
-  }
-
 }

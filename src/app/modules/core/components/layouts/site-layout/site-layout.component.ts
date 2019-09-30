@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Auth2Service} from "../../../services/auth2-service";
 
@@ -7,7 +7,7 @@ import {Auth2Service} from "../../../services/auth2-service";
   templateUrl: './site-layout.component.html',
   styleUrls: ['./site-layout.component.scss']
 })
-export class SiteLayoutComponent {
+export class SiteLayoutComponent implements OnInit {
   options: FormGroup;
   links = [
     {url: '/articles', name: 'Статьи'},
@@ -22,6 +22,9 @@ export class SiteLayoutComponent {
       fixed: false,
       top: 0
     });
+  }
+
+  ngOnInit() {
   }
 
   logout() {
