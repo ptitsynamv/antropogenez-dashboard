@@ -3,20 +3,13 @@ import {from, Observable, of} from "rxjs";
 import {catchError} from "rxjs/operators";
 import {AuthConfig, JwksValidationHandler, OAuthEvent, OAuthService} from "angular-oauth2-oidc";
 import {environment} from "../../../../environments/environment";
-import {action, computed, observable} from "mobx";
-import {fromMobx} from "../../../store/getters";
+import {User} from "../interfaces/interfaces";
 
 @Injectable({
   providedIn: 'root',
 })
 
 export class Auth2Service {
-  @computed
-  public get userProfile$(): Observable<any> {
-    // const a = !this.oauthService.getIdentityClaims() ? this.loadUserProfile() : of(this.oauthService.getIdentityClaims());
-    // return a;
-    of(null)
-  };
 
   constructor(
     protected oauthService: OAuthService,
@@ -45,7 +38,9 @@ export class Auth2Service {
           // this.isError.next(true);
           break;
         case 'discovery_document_loaded':
-          this.loadUserProfile();
+          if (event['info'] && !oauthService.getIdentityClaims()) {
+            this.loadUserProfile();
+          }
           break;
         case 'logout':
           break;
@@ -75,8 +70,7 @@ export class Auth2Service {
     return from(this.oauthService.tryLogin());
   }
 
-  @action
-  public loadUserProfile() {
+  public loadUserProfile(): Observable<User> {
     // @ts-ignore
     return from(this.oauthService.loadUserProfile())
       .pipe(

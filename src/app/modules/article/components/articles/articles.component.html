@@ -1,11 +1,17 @@
 <section *ngIf="!isLoading">
   <div class="articles-wrap">
-    <div *ngFor="let article of articles">
+    <div
+      *ngFor="let article of articles"
+      matRipple
+      [matRippleCentered]="centered"
+      [matRippleUnbounded]="unbounded"
+      (click)="onClick(article.id)"
+    >
       <mat-card>
         <mat-card-title
           class="title"
-          (click)="onClick(article.id)"
-        >{{article.subject}}</mat-card-title>
+        >{{article.subject}}
+        </mat-card-title>
         <mat-card-subtitle>{{article.date}}</mat-card-subtitle>
       </mat-card>
     </div>
@@ -13,8 +19,10 @@
 
   <mat-paginator [length]="count"
                  [pageSize]="pageSize"
+                 [hidePageSize]="true"
+                 [showFirstLastButtons]="true"
                  (page)="handlePage($event)"
-                 >
+  >
   </mat-paginator>
 
 </section>

@@ -42,16 +42,12 @@ export class ArticlesComponent implements OnInit, OnDestroy {
 
 
   onClick(id: string) {
-    this.router.navigate(['/article', id])
+    setTimeout(() => this.router.navigate(['/article', id]), 280);
   }
 
   handlePage(e: any) {
-    this.iterator(e.pageIndex)
-  }
-
-  protected iterator(offset = 0) {
     this.subscriptions.push(
-      this.articleService.getArticles(offset)
+      this.articleService.getArticles(e.pageIndex)
         .subscribe((articleList: ArticleList) => {
           this.articles = articleList.list;
         })
