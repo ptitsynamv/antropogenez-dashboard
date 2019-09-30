@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
-import {Router} from "@angular/router";
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {AuthService} from "../../../services/auth.service";
+import {Auth2Service} from "../../../services/auth2-service";
 
 @Component({
   selector: 'app-site-layout',
@@ -15,8 +14,7 @@ export class SiteLayoutComponent {
   ];
 
   constructor(
-    private outh: AuthService,
-    private router: Router,
+    private auth2Service: Auth2Service,
     private fb: FormBuilder,
   ) {
     this.options = fb.group({
@@ -26,10 +24,8 @@ export class SiteLayoutComponent {
     });
   }
 
-
   logout() {
-    this.outh.logout();
-    this.router.navigate(['/login'])
+    this.auth2Service.logout();
+    window.location.reload();
   }
-
 }

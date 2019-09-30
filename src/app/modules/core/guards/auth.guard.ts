@@ -21,14 +21,13 @@ export class AuthGuard implements CanActivate {
   }
 
   protected onNotLogin(): boolean {
-    // this.authService.logout();
-    // this.authService.login();
-    // return false;
-    return true;
+    this.authService.logout();
+    this.authService.login();
+    return false;
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    return of(Boolean(route.fragment && /access_token.+token_type.+state/.test(route.fragment)))
+    return of(Boolean(route.fragment && /access_token.+expires_in.+state.+token_type.+/.test(route.fragment)))
       .pipe(
         map((isAuthorizeScenario) => {
           if (!isAuthorizeScenario) {
