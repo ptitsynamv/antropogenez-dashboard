@@ -1,22 +1,20 @@
-import {Component} from '@angular/core';
-import {Router} from "@angular/router";
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {AuthService} from "../../../services/auth.service";
+import {Auth2Service} from "../../../services/auth2-service";
 
 @Component({
   selector: 'app-site-layout',
   templateUrl: './site-layout.component.html',
   styleUrls: ['./site-layout.component.scss']
 })
-export class SiteLayoutComponent {
+export class SiteLayoutComponent implements OnInit {
   options: FormGroup;
   links = [
     {url: '/articles', name: 'Статьи'},
   ];
 
   constructor(
-    private outh: AuthService,
-    private router: Router,
+    private auth2Service: Auth2Service,
     private fb: FormBuilder,
   ) {
     this.options = fb.group({
@@ -26,10 +24,11 @@ export class SiteLayoutComponent {
     });
   }
 
-
-  logout() {
-    this.outh.logout();
-    this.router.navigate(['/login'])
+  ngOnInit() {
   }
 
+  logout() {
+    this.auth2Service.logout();
+    window.location.reload();
+  }
 }
