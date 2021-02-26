@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-  auth2Url: 'http://localhost:3001',
+  auth2Url: 'http://localhost:3002',
+  auth2ClientId: 'antropogenez-client-id',
+  serverUrl: 'http://localhost:3003',
 };
 
 /*

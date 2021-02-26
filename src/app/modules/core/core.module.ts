@@ -21,7 +21,7 @@ import {OAuthModule} from "angular-oauth2-oidc";
     MatNativeDateModule,
     OAuthModule.forRoot({
       resourceServer: {
-        allowedUrls: ['/api'],
+        customUrlValidation: (url: string) => /api/.test(url),
         sendAccessToken: true
       }
     }),

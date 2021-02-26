@@ -16,7 +16,7 @@ export class Auth2Service {
   ) {
     const authConfig: AuthConfig = {
       redirectUri: window.location.origin + '/articles',
-      clientId: 'antropogenez-client-id',
+      clientId: environment.auth2ClientId,
       showDebugInformation: true,
       timeoutFactor: 0.8,
       requireHttps: false,
