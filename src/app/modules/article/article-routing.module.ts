@@ -11,19 +11,19 @@ const routes: Routes = [
     component: SiteLayoutComponent,
     canActivate: [AuthGuard],
     children: [
-      {path: 'articles', component: ArticlesComponent},
-      {path: 'article/:id', component: ArticleComponent},
-    ]
-  }
+      {path: '', component: ArticlesComponent},
+      {path: ':id', component: ArticleComponent},
+    ],
+  },
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
   ],
   exports: [
-    RouterModule
-  ]
+    RouterModule,
+  ],
 })
 
 export class ArticleRoutingModule {

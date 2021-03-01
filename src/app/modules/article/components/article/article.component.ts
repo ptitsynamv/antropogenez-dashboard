@@ -17,9 +17,9 @@ export class ArticleComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   constructor(
-    protected articleService: ArticleService,
-    protected activatedRoute: ActivatedRoute,
-    protected titleService: Title,
+    private articleService: ArticleService,
+    private activatedRoute: ActivatedRoute,
+    private titleService: Title,
   ) {
   }
 
@@ -31,7 +31,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
         this.titleService.setTitle(article.subject);
         this.article = article;
         this.isLoading = false;
-      })
+      });
   }
 
   ngOnDestroy() {

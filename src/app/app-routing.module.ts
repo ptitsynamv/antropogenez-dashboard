@@ -10,25 +10,29 @@ const routes: Routes = [
   },
   {
     path: '',
-    loadChildren: () => import('./modules/core/core.module').then(m => m.CoreModule)
+    loadChildren: () => import('./modules/core/core.module').then(m => m.CoreModule),
   },
   {
-    path: '',
-    loadChildren: () => import('./modules/article/article.module').then(m => m.ArticleModule)
+    path: 'articles',
+    loadChildren: () => import('./modules/article/article.module').then(m => m.ArticleModule),
+  },
+  {
+    path: 'f-articles',
+    loadChildren: () => import('./modules/f-article/f-article.module').then(m => m.FArticleModule),
   },
   {
     path: '**',
     component: NotFoundComponent,
-  }
+  },
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
   ],
   exports: [
-    RouterModule
-  ]
+    RouterModule,
+  ],
 })
 
 export class AppRoutingModule {

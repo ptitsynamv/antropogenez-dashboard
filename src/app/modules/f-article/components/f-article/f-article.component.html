@@ -1,0 +1,25 @@
+<h2> {{form.controls.id.value ? 'Update article' : 'Create article'}}</h2>
+
+<form [formGroup]="form" (submit)="onSubmit()">
+
+ <div class="wrap">
+   <mat-form-field appearance="outline">
+     <mat-label>Title</mat-label>
+     <input matInput formControlName="title">
+   </mat-form-field>
+
+   <mat-form-field appearance="outline">
+     <mat-label>Url</mat-label>
+     <input matInput formControlName="url">
+   </mat-form-field>
+
+   <button mat-stroked-button color="primary" type="submit">Submit</button>
+ </div>
+
+</form>
+
+<div class="wrap">
+  <button
+    *ngIf="form.controls.id.value"
+    mat-stroked-button color="warn" (click)="onDelete()">Delete</button>
+</div>

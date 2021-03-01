@@ -1,18 +1,22 @@
 import {Injectable} from "@angular/core";
-import {from, Observable, of} from "rxjs";
-import {catchError} from "rxjs/operators";
-import {AuthConfig, JwksValidationHandler, OAuthEvent, OAuthService} from "angular-oauth2-oidc";
+import {from, Observable, of, ReplaySubject} from "rxjs";
+import {catchError, mergeMap} from "rxjs/operators";
+import {AuthConfig, JwksValidationHandler, OAuthEvent, OAuthService, OAuthSuccessEvent} from "angular-oauth2-oidc";
 import {environment} from "../../../../environments/environment";
-import {User} from "../interfaces/interfaces";
+import {DiscoveryDocumentI, User, UserRoleE} from "../interfaces/interfaces";
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 
 export class Auth2Service {
+  private discoveryDocument = new ReplaySubject<DiscoveryDocumentI>(1);
+  public discoveryDocument$: Observable<DiscoveryDocumentI> = this.discoveryDocument.asObservable();
 
   constructor(
-    protected oauthService: OAuthService,
+    private oauthService: OAuthService,
+    private http: HttpClient,
   ) {
     const authConfig: AuthConfig = {
       redirectUri: window.location.origin + '/articles',
@@ -21,7 +25,6 @@ export class Auth2Service {
       timeoutFactor: 0.8,
       requireHttps: false,
       issuer: environment.auth2Url + '/oauth2',
-
       oidc: false,
     };
 
@@ -51,7 +54,11 @@ export class Auth2Service {
     oauthService.configure(authConfig);
     oauthService.setupAutomaticSilentRefresh();
     oauthService.tokenValidationHandler = new JwksValidationHandler();
-    oauthService.loadDiscoveryDocument();
+    oauthService.loadDiscoveryDocument()
+      .then((data: OAuthSuccessEvent) => {
+        const {discoveryDocument} = data.info;
+        this.discoveryDocument.next(discoveryDocument);
+      });
   }
 
   public login(): void {
@@ -80,5 +87,18 @@ export class Auth2Service {
 
   public getIdentityClaims() {
     return this.oauthService.getIdentityClaims();
+  }
+
+  public getUserRole(): Observable<UserRoleE> {
+    const headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
+
+    return this.discoveryDocument$
+      .pipe(
+        mergeMap((data) => this.http.get<UserRoleE>(data.user_role, {
+          headers,
+          // @ts-ignore
+          responseType: 'text',
+        })),
+      ) as Observable<UserRoleE>;
   }
 }

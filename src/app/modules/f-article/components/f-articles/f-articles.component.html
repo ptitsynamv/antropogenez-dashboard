@@ -1,0 +1,19 @@
+<button mat-flat-button color="primary" [routerLink]="'create'">Create New</button>
+
+<ng-container *ngIf="articles$ | async as articlesData">
+  <p>Count: {{articlesData.count}}</p>
+
+  <section>
+    <mat-card *ngFor="let article of articlesData.list">
+      <mat-card-title
+        class="title"
+      >{{article.title}}
+      </mat-card-title>
+
+      <mat-card-actions>
+        <button mat-raised-button color="accent" [routerLink]="article.id">Edit</button>
+      </mat-card-actions>
+    </mat-card>
+  </section>
+
+</ng-container>

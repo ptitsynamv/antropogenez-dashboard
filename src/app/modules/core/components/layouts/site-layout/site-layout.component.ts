@@ -11,6 +11,7 @@ export class SiteLayoutComponent implements OnInit {
   options: FormGroup;
   links = [
     {url: '/articles', name: 'Статьи'},
+    {url: '/f-articles', name: 'F Статьи'},
   ];
 
   constructor(

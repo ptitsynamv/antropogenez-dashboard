@@ -1,10 +1,10 @@
 export interface ArticleList {
   list: Article[];
-  count: number,
+  count: number;
 }
 
 export interface Article {
-  _id: string;
+  id: string;
   subject: string;
   date: string;
   text?: string;

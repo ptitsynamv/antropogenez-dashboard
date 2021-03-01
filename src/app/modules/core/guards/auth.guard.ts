@@ -26,7 +26,7 @@ export class AuthGuard implements CanActivate {
     return false;
   }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     return of(Boolean(route.fragment && /access_token.+expires_in.+state.+token_type.+/.test(route.fragment)))
       .pipe(
         map((isAuthorizeScenario) => {

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  auth2Url: 'http://localhost:3002',
+  auth2Url: 'http://ptitsynamv.1gb.ua:3002',
   auth2ClientId: 'antropogenez-client-id',
   serverUrl: 'http://localhost:3003',
 };
