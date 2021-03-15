@@ -1,22 +1,22 @@
 import {Injectable} from "@angular/core";
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpParams} from "@angular/common/http";
 import {Article, ArticleList} from "../interfaces/interfaces";
 import {Observable} from "rxjs";
-import {environment} from '../../../../environments/environment';
+import {ApiService} from '../../core/services/api.service';
 
 @Injectable()
 export class ArticleService {
-  constructor(private http: HttpClient) {
+  constructor(private apiService: ApiService) {
   }
 
   getArticles(offset = 0, limit = 10): Observable<ArticleList> {
     const params = new HttpParams()
       .set('limit', limit.toString())
       .set('offset', offset.toString());
-    return this.http.get<ArticleList>(environment.serverUrl + '/api/article', {params});
+    return this.apiService.get<ArticleList>('article', {params});
   }
 
   getArticle(id: string): Observable<Article> {
-    return this.http.get<Article>(environment.serverUrl + '/api/article/' + id);
+    return this.apiService.get<Article>('article/' + id);
   }
 }

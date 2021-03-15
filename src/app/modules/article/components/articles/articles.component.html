@@ -1,10 +1,7 @@
-<section *ngIf="!isLoading">
+<section *ngIf="!isLoading; else loader">
   <div class="articles-wrap">
     <div
-      *ngFor="let article of articles"
-      matRipple
-      [matRippleCentered]="centered"
-      [matRippleUnbounded]="unbounded"
+      *ngFor="let article of articles" matRipple
       (click)="onClick(article.id)"
     >
       <mat-card>
@@ -27,3 +24,6 @@
 
 </section>
 
+<ng-template #loader>
+  <mat-spinner></mat-spinner>
+</ng-template>

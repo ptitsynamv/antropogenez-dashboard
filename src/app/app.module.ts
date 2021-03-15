@@ -12,12 +12,16 @@ import {CoreModule} from "./modules/core/core.module";
 import {ToastrModule} from 'ngx-toastr';
 import {NotFoundComponent} from "./components/not-found/not-found.component";
 import {AppComponent} from './components/app/app.component';
+import {ApiService} from './modules/core/services/api.service';
+import {NotificationService} from './modules/core/services/notification.service';
+import { MainComponent } from './components/main/main.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TodoComponent,
     NotFoundComponent,
+    MainComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,6 +36,8 @@ import {AppComponent} from './components/app/app.component';
     TodosStore,
     TodosFilterStore,
     TodosService,
+    ApiService,
+    NotificationService,
   ],
   bootstrap: [AppComponent],
 })

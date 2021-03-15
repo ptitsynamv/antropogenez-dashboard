@@ -8,7 +8,7 @@ import {Title} from "@angular/platform-browser";
 @Component({
   selector: 'app-articles',
   templateUrl: './articles.component.html',
-  styleUrls: ['./articles.component.scss']
+  styleUrls: ['./articles.component.scss'],
 })
 export class ArticlesComponent implements OnInit, OnDestroy {
   articles: Article[];
@@ -20,7 +20,7 @@ export class ArticlesComponent implements OnInit, OnDestroy {
   constructor(
     protected articleService: ArticleService,
     protected router: Router,
-    protected titleService: Title
+    protected titleService: Title,
   ) {
     titleService.setTitle('Статьи');
   }
@@ -32,17 +32,17 @@ export class ArticlesComponent implements OnInit, OnDestroy {
           this.articles = articleList.list;
           this.count = articleList.count;
           this.isLoading = false;
-        })
-    )
+        }),
+    );
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe())
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
 
   onClick(id: string) {
-    setTimeout(() => this.router.navigate(['/article', id]), 280);
+    setTimeout(() => this.router.navigate(['articles', id]), 280);
   }
 
   handlePage(e: any) {
@@ -50,7 +50,7 @@ export class ArticlesComponent implements OnInit, OnDestroy {
       this.articleService.getArticles(e.pageIndex)
         .subscribe((articleList: ArticleList) => {
           this.articles = articleList.list;
-        })
-    )
+        }),
+    );
   }
 }

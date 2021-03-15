@@ -8,6 +8,10 @@
   button {
     margin: 5px;
     height: 56px;
+
+    &.active-url {
+      background: darkcyan;
+    }
   }
 }
 

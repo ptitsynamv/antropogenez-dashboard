@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {PublicServiceService} from '../../services/public-service.service';
 import {PublicServiceWaterI} from '../../interfaces/interfaces';
 import {mergeMap} from 'rxjs/operators';
+import {NotificationService} from '../../../core/services/notification.service';
 
 @Component({
   selector: 'app-water-list',
@@ -12,7 +13,10 @@ export class WaterListComponent implements OnInit {
   public waterList: PublicServiceWaterI[];
   public isLoading = true;
 
-  constructor(private publicServiceService: PublicServiceService) {
+  constructor(
+    private publicServiceService: PublicServiceService,
+    private notificationService: NotificationService,
+  ) {
   }
 
   public ngOnInit(): void {
@@ -30,6 +34,7 @@ export class WaterListComponent implements OnInit {
         mergeMap(() => this.publicServiceService.getWaterList()),
       )
       .subscribe((waterList) => {
+        this.notificationService.successNotification.next('Water data was deleted');
         this.waterList = waterList;
         this.isLoading = false;
       });

@@ -7,6 +7,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DemoMaterialModule} from "../../material-module";
 import {AuthGuard} from "./guards/auth.guard";
 import {OAuthModule} from "angular-oauth2-oidc";
+import {MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,14 @@ import {OAuthModule} from "angular-oauth2-oidc";
   ],
   providers: [
     AuthGuard,
+    {
+      provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
+      useValue: {
+        duration: 3000,
+        horizontalPosition: 'center',
+        verticalPosition: 'bottom',
+      },
+    },
   ],
 })
 export class CoreModule {

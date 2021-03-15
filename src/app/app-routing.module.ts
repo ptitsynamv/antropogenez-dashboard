@@ -4,6 +4,7 @@ import {NotFoundComponent} from "./components/not-found/not-found.component";
 import {SiteLayoutComponent} from './modules/core/components/layouts/site-layout/site-layout.component';
 import {AuthGuard} from './modules/core/guards/auth.guard';
 import {LoginGuard} from './modules/core/guards/login.guard';
+import {MainComponent} from './components/main/main.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,10 @@ const routes: Routes = [
     canActivate: [LoginGuard],
     canActivateChild: [AuthGuard],
     children: [
+      {
+        path: '',
+        component: MainComponent,
+      },
       {
         path: 'articles',
         loadChildren: () => import('./modules/article/article.module').then(m => m.ArticleModule),
