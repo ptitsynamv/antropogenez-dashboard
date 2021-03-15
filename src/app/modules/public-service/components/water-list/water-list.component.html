@@ -1,0 +1,14 @@
+<button mat-flat-button color="primary" [routerLink]="'create'">Create New</button>
+
+<ng-container *ngIf="waterList$ | async as waterList">
+  <section>
+    <mat-card *ngFor="let water of waterList">
+      <mat-card-title
+        class="title"
+      >{{water.data}}
+      </mat-card-title>
+
+    </mat-card>
+  </section>
+
+</ng-container>

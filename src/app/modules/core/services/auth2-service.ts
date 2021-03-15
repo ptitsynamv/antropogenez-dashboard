@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
-import {from, Observable, of, ReplaySubject} from "rxjs";
-import {catchError, mergeMap} from "rxjs/operators";
+import {BehaviorSubject, from, fromEvent, Observable, of, ReplaySubject} from "rxjs";
+import {catchError, map, mergeMap, tap} from "rxjs/operators";
 import {AuthConfig, JwksValidationHandler, OAuthEvent, OAuthService, OAuthSuccessEvent} from "angular-oauth2-oidc";
 import {environment} from "../../../../environments/environment";
 import {DiscoveryDocumentI, User, UserRoleE} from "../interfaces/interfaces";
@@ -11,15 +11,14 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 })
 
 export class Auth2Service {
-  private discoveryDocument = new ReplaySubject<DiscoveryDocumentI>(1);
-  public discoveryDocument$: Observable<DiscoveryDocumentI> = this.discoveryDocument.asObservable();
+  private discoveryDocument = new BehaviorSubject<DiscoveryDocumentI>(null);
 
   constructor(
     private oauthService: OAuthService,
     private http: HttpClient,
   ) {
     const authConfig: AuthConfig = {
-      redirectUri: window.location.origin + '/articles',
+      redirectUri: window.location.origin, // + '/articles',
       clientId: environment.auth2ClientId,
       showDebugInformation: true,
       timeoutFactor: 0.8,
@@ -41,20 +40,21 @@ export class Auth2Service {
           // this.isError.next(true);
           break;
         case 'discovery_document_loaded':
-          if (event['info'] && !oauthService.getIdentityClaims()) {
-            this.loadUserProfile();
-          }
+          // if (event['info'] && !oauthService.getIdentityClaims()) {
+          //   this.loadUserProfile();
+          // }
           break;
         case 'logout':
           break;
       }
-      console.warn('event', event);
+      console.warn('OAuth', event);
     });
 
     oauthService.configure(authConfig);
     oauthService.setupAutomaticSilentRefresh();
     oauthService.tokenValidationHandler = new JwksValidationHandler();
-    oauthService.loadDiscoveryDocument()
+
+    this.oauthService.loadDiscoveryDocument()
       .then((data: OAuthSuccessEvent) => {
         const {discoveryDocument} = data.info;
         this.discoveryDocument.next(discoveryDocument);
@@ -90,15 +90,31 @@ export class Auth2Service {
   }
 
   public getUserRole(): Observable<UserRoleE> {
-    const headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
-
-    return this.discoveryDocument$
+    return of(this.discoveryDocument.getValue())
       .pipe(
-        mergeMap((data) => this.http.get<UserRoleE>(data.user_role, {
-          headers,
-          // @ts-ignore
-          responseType: 'text',
-        })),
+        mergeMap((discoveryDocumentData: DiscoveryDocumentI) => {
+          if (discoveryDocumentData === null) {
+
+            return from(this.oauthService.loadDiscoveryDocument())
+              .pipe(
+                map((data: OAuthSuccessEvent) => {
+                  const discoveryDocument = data.info.discoveryDocument;
+                  this.discoveryDocument.next(discoveryDocument);
+                  return discoveryDocument;
+                }),
+              );
+          } else {
+            return of(discoveryDocumentData);
+          }
+        }),
+        mergeMap((discoveryDocument: DiscoveryDocumentI) => {
+          const headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
+          return this.http.get<UserRoleE>(discoveryDocument.user_role, {
+            headers,
+            // @ts-ignore
+            responseType: 'text',
+          });
+        }),
       ) as Observable<UserRoleE>;
   }
 }

@@ -1,6 +1,6 @@
 <button mat-flat-button color="primary" [routerLink]="'create'">Create New</button>
 
-<ng-container *ngIf="articles$ | async as articlesData">
+<ng-container *ngIf="articles$ | async as articlesData; else loader">
   <p>Count: {{articlesData.count}}</p>
 
   <section>
@@ -17,3 +17,7 @@
   </section>
 
 </ng-container>
+
+<ng-template #loader>
+  <mat-spinner></mat-spinner>
+</ng-template>

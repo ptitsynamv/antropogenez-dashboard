@@ -1,20 +1,12 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-import {FArticleGuard} from './guards/f-article.guard';
 import {FArticlesComponent} from './components/f-articles/f-articles.component';
 import {FArticleComponent} from './components/f-article/f-article.component';
-import {SiteLayoutComponent} from '../core/components/layouts/site-layout/site-layout.component';
+import {FArticleGuard} from './guards/f-article.guard';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: SiteLayoutComponent,
-    canActivate: [FArticleGuard],
-    children: [
-      {path: '', component: FArticlesComponent},
-      {path: ':id', component: FArticleComponent},
-    ],
-  },
+  {path: '', canActivate: [FArticleGuard], component: FArticlesComponent},
+  {path: ':id', canActivate: [FArticleGuard], component: FArticleComponent},
 ];
 
 @NgModule({

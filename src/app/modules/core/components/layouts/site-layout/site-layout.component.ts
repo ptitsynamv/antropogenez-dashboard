@@ -1,35 +1,42 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
 import {Auth2Service} from "../../../services/auth2-service";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-site-layout',
   templateUrl: './site-layout.component.html',
-  styleUrls: ['./site-layout.component.scss']
+  styleUrls: ['./site-layout.component.scss'],
 })
 export class SiteLayoutComponent implements OnInit {
-  options: FormGroup;
-  links = [
+  public links = [
     {url: '/articles', name: 'Статьи'},
     {url: '/f-articles', name: 'F Статьи'},
+    {url: '/public-service', name: 'Public Service'},
   ];
+  public isLogged: boolean;
 
   constructor(
     private auth2Service: Auth2Service,
-    private fb: FormBuilder,
+    private router: Router,
   ) {
-    this.options = fb.group({
-      bottom: 0,
-      fixed: false,
-      top: 0
-    });
   }
 
   ngOnInit() {
+    this.checkToken();
   }
 
   logout() {
     this.auth2Service.logout();
-    window.location.reload();
+    this.router.navigate(['/']);
+
+    this.checkToken();
+  }
+
+  login() {
+    this.auth2Service.login();
+  }
+
+  private checkToken(): void {
+    this.isLogged = this.auth2Service.hasValidToken();
   }
 }

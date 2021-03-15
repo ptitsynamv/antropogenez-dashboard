@@ -2,10 +2,13 @@
   background: #c7c7c7;
   display: flex;
   justify-content: flex-start;
-  height: 50px;
+  padding: 10px;
+  max-width: 600px;
+  flex-wrap: wrap;
 
   button {
-    margin: 0 10px
+    margin: 5px;
+    height: 56px;
   }
 }
 

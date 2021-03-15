@@ -1,18 +1,30 @@
 <div class="menu-wrap">
 
-  <button *ngFor="let link of links"
-          mat-stroked-button
-          [routerLink]="[link.url]"
-  >
-    {{link.name}}
+  <button mat-fab color="accent" routerLink="/">
+    <mat-icon>bookmark</mat-icon>
   </button>
 
-  <button
-    mat-stroked-button
-    (click)="logout()"
-  >
-    Выйти
-  </button>
+  <ng-container *ngIf="isLogged; else logInTmp">
+
+    <button *ngFor="let link of links"
+            mat-raised-button
+            color="accent"
+            [routerLink]="[link.url]"
+    >
+      {{link.name}}
+    </button>
+
+    <button mat-raised-button (click)="logout()" color="accent">
+      Выйти
+    </button>
+  </ng-container>
+
+  <ng-template #logInTmp>
+    <button mat-raised-button (click)="login()" color="accent">
+      Log in
+    </button>
+  </ng-template>
+
 </div>
 
 <div class="content-wrap">
