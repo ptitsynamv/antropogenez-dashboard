@@ -1,4 +1,4 @@
-<section *ngIf="!isLoading">
+<section *ngIf="!isLoading; else loader">
   <div class="date">
     <mat-chip-list>
       <mat-chip>{{article.date}}</mat-chip>
@@ -7,3 +7,7 @@
   <div class="article-text" [innerHTML]="article.text">
   </div>
 </section>
+
+<ng-template #loader>
+  <mat-spinner></mat-spinner>
+</ng-template>

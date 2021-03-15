@@ -1,25 +1,32 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {NotFoundComponent} from "./components/not-found/not-found.component";
+import {SiteLayoutComponent} from './modules/core/components/layouts/site-layout/site-layout.component';
+import {AuthGuard} from './modules/core/guards/auth.guard';
+import {LoginGuard} from './modules/core/guards/login.guard';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'articles',
-    pathMatch: 'full',
+    component: SiteLayoutComponent,
+    canActivate: [LoginGuard],
+    canActivateChild: [AuthGuard],
+    children: [
+      {
+        path: 'articles',
+        loadChildren: () => import('./modules/article/article.module').then(m => m.ArticleModule),
+      },
+      {
+        path: 'f-articles',
+        loadChildren: () => import('./modules/f-article/f-article.module').then(m => m.FArticleModule),
+      },
+      {
+        path: 'public-service',
+        loadChildren: () => import('./modules/public-service/public-service.module').then(m => m.PublicServiceModule),
+      },
+    ],
   },
-  {
-    path: '',
-    loadChildren: () => import('./modules/core/core.module').then(m => m.CoreModule),
-  },
-  {
-    path: 'articles',
-    loadChildren: () => import('./modules/article/article.module').then(m => m.ArticleModule),
-  },
-  {
-    path: 'f-articles',
-    loadChildren: () => import('./modules/f-article/f-article.module').then(m => m.FArticleModule),
-  },
+
   {
     path: '**',
     component: NotFoundComponent,

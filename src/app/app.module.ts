@@ -1,7 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
-import {AppComponent} from './app.component';
 import {MobxAngularModule} from 'mobx-angular';
 import {TodoComponent} from './components/todo/todo.component';
 import {TodosStore} from "./store/todos-store";
@@ -12,6 +11,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {CoreModule} from "./modules/core/core.module";
 import {ToastrModule} from 'ngx-toastr';
 import {NotFoundComponent} from "./components/not-found/not-found.component";
+import {AppComponent} from './components/app/app.component';
 
 @NgModule({
   declarations: [
