@@ -1,5 +1,8 @@
-export interface WaterI {
+export interface PublicServiceWaterI extends NewPublicServiceWaterI {
   id: string;
-  data: string;
   date: string;
+}
+
+export interface NewPublicServiceWaterI {
+  data: string;
 }

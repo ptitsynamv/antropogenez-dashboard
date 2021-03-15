@@ -1,14 +1,22 @@
 <button mat-flat-button color="primary" [routerLink]="'create'">Create New</button>
 
-<ng-container *ngIf="waterList$ | async as waterList">
-  <section>
-    <mat-card *ngFor="let water of waterList">
-      <mat-card-title
-        class="title"
-      >{{water.data}}
-      </mat-card-title>
+<section *ngIf="!isLoading; else loader">
+  <mat-card *ngFor="let water of waterList">
+    <mat-card-title class="title">
+      {{water.date}}
+    </mat-card-title>
 
-    </mat-card>
-  </section>
+    <mat-card-content>
+      <p [innerText]="water.data"></p>
+    </mat-card-content>
 
-</ng-container>
+    <mat-card-actions>
+      <button mat-raised-button color="accent" (click)="onClickDelete(water.id)">Delete</button>
+    </mat-card-actions>
+
+  </mat-card>
+</section>
+
+<ng-template #loader>
+  <mat-spinner></mat-spinner>
+</ng-template>

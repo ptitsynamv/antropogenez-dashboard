@@ -14,7 +14,7 @@ import {FArticle} from '../../interfaces/interfaces';
 })
 export class FArticleComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
-  private form = new FormGroup({
+  public form = new FormGroup({
     id: new FormControl(''),
     title: new FormControl('', [
       Validators.required, Validators.minLength(1), Validators.maxLength(150),

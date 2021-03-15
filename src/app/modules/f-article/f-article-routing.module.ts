@@ -2,11 +2,19 @@ import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {FArticlesComponent} from './components/f-articles/f-articles.component';
 import {FArticleComponent} from './components/f-article/f-article.component';
-import {FArticleGuard} from './guards/f-article.guard';
+import {AdminGuard} from '../core/guards/admin.guard';
 
 const routes: Routes = [
-  {path: '', canActivate: [FArticleGuard], component: FArticlesComponent},
-  {path: ':id', canActivate: [FArticleGuard], component: FArticleComponent},
+  {
+    path: '',
+    canActivate: [AdminGuard],
+    component: FArticlesComponent,
+  },
+  {
+    path: ':id',
+    canActivate: [AdminGuard],
+    component: FArticleComponent,
+  },
 ];
 
 @NgModule({

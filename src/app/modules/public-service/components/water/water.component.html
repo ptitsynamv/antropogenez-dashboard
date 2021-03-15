@@ -1,1 +1,15 @@
-<p>water works!</p>
+<h2>Create Water Date</h2>
+
+<form [formGroup]="form" (submit)="onSubmit()">
+
+  <div class="wrap">
+
+    <mat-form-field appearance="fill">
+      <mat-label>Water Date</mat-label>
+      <textarea matInput  formControlName="data" rows="10"></textarea>
+    </mat-form-field>
+
+    <button mat-stroked-button color="primary" type="submit" [disabled]="isLoading">Submit</button>
+  </div>
+
+</form>
