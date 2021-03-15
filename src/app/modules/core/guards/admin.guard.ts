@@ -1,19 +1,20 @@
 import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
+import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router} from '@angular/router';
 import {Observable} from 'rxjs';
+import {Auth2Service} from '../services/auth2-service';
 import {catchError, map} from 'rxjs/operators';
-import {UserRoleE} from '../../core/interfaces/interfaces';
-import {Auth2Service} from '../../core/services/auth2-service';
+import {UserRoleE} from '../interfaces/interfaces';
 import {of} from 'rxjs/internal/observable/of';
 
-@Injectable()
-export class FArticleGuard implements CanActivate {
+@Injectable({
+  providedIn: 'root',
+})
+export class AdminGuard implements CanActivate {
 
   constructor(
     protected router: Router,
     protected authService: Auth2Service,
   ) {
-
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
