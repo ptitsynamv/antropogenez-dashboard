@@ -1,12 +1,12 @@
-import {ActivatedRouteSnapshot, CanActivateChild, Router, RouterStateSnapshot} from "@angular/router";
+import {ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot} from "@angular/router";
 import {Observable} from "rxjs";
 import {Injectable} from "@angular/core";
 import {of} from "rxjs/internal/observable/of";
-import {catchError, map} from "rxjs/operators";
+import {catchError, map, tap} from "rxjs/operators";
 import {Auth2Service} from "../services/auth2-service";
 
 @Injectable()
-export class AuthGuard implements CanActivateChild {
+export class AuthGuard implements CanActivate {
   constructor(
     protected router: Router,
     protected authService: Auth2Service,
@@ -14,7 +14,7 @@ export class AuthGuard implements CanActivateChild {
 
   }
 
-  public canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+  public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     return this.hasToken();
   }
 
@@ -30,9 +30,7 @@ export class AuthGuard implements CanActivateChild {
   }
 
   protected onNotLogin(): boolean {
-    // this.authService.logout();
     this.router.navigate(['/']);
-    // this.authService.login();
     return false;
   }
 }

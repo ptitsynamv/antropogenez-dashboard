@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
-import {BehaviorSubject, from, fromEvent, Observable, of, ReplaySubject} from "rxjs";
-import {catchError, map, mergeMap, tap} from "rxjs/operators";
+import {BehaviorSubject, from, Observable, of} from "rxjs";
+import {catchError, map, mergeMap} from "rxjs/operators";
 import {AuthConfig, JwksValidationHandler, OAuthEvent, OAuthService, OAuthSuccessEvent} from "angular-oauth2-oidc";
 import {environment} from "../../../../environments/environment";
 import {DiscoveryDocumentI, User, UserRoleE} from "../interfaces/interfaces";
@@ -108,7 +108,11 @@ export class Auth2Service {
           }
         }),
         mergeMap((discoveryDocument: DiscoveryDocumentI) => {
-          const headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
+          const headers = new HttpHeaders({
+            Authorization: 'Bearer ' + this.getToken(),
+            'Content-Type': 'text/plain; charset=utf-8',
+          });
+
           return this.http.get<UserRoleE>(discoveryDocument.user_role, {
             headers,
             // @ts-ignore
@@ -116,5 +120,9 @@ export class Auth2Service {
           });
         }),
       ) as Observable<UserRoleE>;
+  }
+
+  public getToken(): string {
+    return this.oauthService.getAccessToken();
   }
 }

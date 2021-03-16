@@ -11,7 +11,6 @@ const routes: Routes = [
     path: '',
     component: SiteLayoutComponent,
     canActivate: [LoginGuard],
-    canActivateChild: [AuthGuard],
     children: [
       {
         path: '',
@@ -19,19 +18,21 @@ const routes: Routes = [
       },
       {
         path: 'articles',
+        canActivate: [AuthGuard],
         loadChildren: () => import('./modules/article/article.module').then(m => m.ArticleModule),
       },
       {
         path: 'f-articles',
+        canActivate: [AuthGuard],
         loadChildren: () => import('./modules/f-article/f-article.module').then(m => m.FArticleModule),
       },
       {
         path: 'public-service',
+        canActivate: [AuthGuard],
         loadChildren: () => import('./modules/public-service/public-service.module').then(m => m.PublicServiceModule),
       },
     ],
   },
-
   {
     path: '**',
     component: NotFoundComponent,
