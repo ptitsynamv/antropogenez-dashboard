@@ -7,6 +7,16 @@ import 'hammerjs';
 
 if (environment.production) {
   enableProdMode();
+  if (window) {
+    window.console.log = () => {
+    };
+    window.console.warn = () => {
+    };
+    window.console.info = () => {
+    };
+    window.console.debug = () => {
+    };
+  }
 }
 
 platformBrowserDynamic().bootstrapModule(AppModule)

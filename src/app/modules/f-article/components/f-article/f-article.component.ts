@@ -6,6 +6,7 @@ import {FArticlesService} from '../../services/f-articles.service';
 import {of} from 'rxjs/internal/observable/of';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {FArticle} from '../../interfaces/interfaces';
+import {NotificationService} from '../../../core/services/notification.service';
 
 @Component({
   selector: 'app-f-article',
@@ -28,6 +29,7 @@ export class FArticleComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private fArticlesService: FArticlesService,
     private router: Router,
+    private notificationService: NotificationService,
   ) {
   }
 
@@ -68,6 +70,7 @@ export class FArticleComponent implements OnInit, OnDestroy {
       this.subscriptions.push(
         this.fArticlesService.updateArticle(data)
           .subscribe(() => {
+            this.notificationService.successNotification.next('F article was updated');
             this.router.navigate(['/f-articles']);
           }),
       );
@@ -75,6 +78,7 @@ export class FArticleComponent implements OnInit, OnDestroy {
       this.subscriptions.push(
         this.fArticlesService.createArticle(data)
           .subscribe(() => {
+            this.notificationService.successNotification.next('F article was created');
             this.router.navigate(['/f-articles']);
           }),
       );
@@ -85,6 +89,7 @@ export class FArticleComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.fArticlesService.deleteArticle(this.form.controls.id.value)
         .subscribe(() => {
+          this.notificationService.successNotification.next('F article was deleted');
           this.router.navigate(['/f-articles']);
         }),
     );

@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {PublicServiceService} from '../../services/public-service.service';
 import {NewPublicServiceWaterI} from '../../interfaces/interfaces';
+import {NotificationService} from '../../../core/services/notification.service';
 
 @Component({
   selector: 'app-water',
@@ -20,6 +21,7 @@ export class WaterComponent {
   constructor(
     private publicServiceService: PublicServiceService,
     private router: Router,
+    private notificationService: NotificationService,
   ) {
   }
 
@@ -33,6 +35,7 @@ export class WaterComponent {
     this.publicServiceService.createWater(data)
       .subscribe(() => {
         this.isLoading = false;
+        this.notificationService.successNotification.next('Water was created');
         this.router.navigate(['/public-service']);
       });
   }

@@ -1,21 +1,32 @@
+@import "~src/assets/variables";
+
+:host {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+}
+
 .menu-wrap {
-  background: #c7c7c7;
+  background: mat-color($primary, 100);
   display: flex;
   justify-content: flex-start;
   padding: 10px;
   flex-wrap: wrap;
+  flex: 0 0 56px;
 
   button {
     margin: 5px;
     height: 56px;
 
     &.active-url {
-      background: darkcyan;
+      background: mat-color($primary);
     }
   }
 }
 
 .content-wrap {
+  flex: 0 1 calc(100% - 56px);
   padding-top: 30px;
   padding-left: 30px;
+  background: mat-color($accent, 100);
 }

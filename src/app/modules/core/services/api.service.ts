@@ -67,7 +67,7 @@ export class ApiService {
         window.location.href = '/';
         break;
       default:
-
+        this.notificationService.errorNotification.next(errorResponse.message);
     }
     return throwError(errorResponse);
   };
