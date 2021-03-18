@@ -13,6 +13,10 @@ export class PublicServiceService {
     return this.apiService.get<PublicServiceWaterI[]>('public-service-water');
   }
 
+  getLastWater(): Observable<PublicServiceWaterI> {
+    return this.apiService.get<PublicServiceWaterI>('public-service-water/last');
+  }
+
   getWater(id: string): Observable<PublicServiceWaterI> {
     return this.apiService.get<PublicServiceWaterI>('public-service-water/' + id);
   }

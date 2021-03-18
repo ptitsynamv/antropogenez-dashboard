@@ -1,15 +1,68 @@
 <h2>Create Water Date</h2>
 
 <form [formGroup]="form" (submit)="onSubmit()">
-
   <div class="wrap">
 
-    <mat-form-field appearance="fill">
-      <mat-label>Water Date</mat-label>
-      <textarea matInput  formControlName="data" rows="10"></textarea>
+    <mat-form-field appearance="outline">
+      <mat-label>Адрес</mat-label>
+      <input matInput formControlName="address">
     </mat-form-field>
 
-    <button mat-stroked-button color="primary" type="submit" [disabled]="isLoading">Submit</button>
+    <mat-divider></mat-divider>
+    <p><b>Гарячая вода:</b></p>
+    <div class="counter-wrap">
+      <p>Кухня</p>
+      <mat-form-field appearance="outline">
+        <mat-label>{{lastWater?.data.hot1CounterName}}</mat-label>
+        <input matInput formControlName="hot1CounterName">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>{{lastWater?.data.hot1}}</mat-label>
+        <input matInput formControlName="hot1">
+      </mat-form-field>
+    </div>
+    <div class="counter-wrap">
+      <p>Туалет</p>
+      <mat-form-field appearance="outline">
+        <mat-label>{{lastWater?.data.hot2CounterName}}</mat-label>
+        <input matInput formControlName="hot2CounterName">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>{{lastWater?.data.hot2}}</mat-label>
+        <input matInput formControlName="hot2">
+      </mat-form-field>
+    </div>
+
+    <mat-divider></mat-divider>
+    <p><b>Холодная вода:</b></p>
+
+    <div class="counter-wrap">
+      <p>Кухня</p>
+      <mat-form-field appearance="outline">
+        <mat-label>{{lastWater?.data.cold1CounterName}}</mat-label>
+        <input matInput formControlName="cold1CounterName">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>{{lastWater?.data.cold1}}</mat-label>
+        <input matInput formControlName="cold1">
+      </mat-form-field>
+    </div>
+    <div class="counter-wrap">
+      <p>Туалет</p>
+      <mat-form-field appearance="outline">
+        <mat-label>{{lastWater?.data.cold2CounterName}}</mat-label>
+        <input matInput formControlName="cold2CounterName">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>{{lastWater?.data.cold2}}</mat-label>
+        <input matInput formControlName="cold2">
+      </mat-form-field>
+    </div>
   </div>
 
+  <button mat-raised-button color="primary" type="submit" [disabled]="isLoading">Submit</button>
+
 </form>
+
+
+<p *ngIf="waterDataText" [innerText]="waterDataText"></p>

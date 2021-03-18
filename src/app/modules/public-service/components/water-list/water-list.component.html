@@ -7,7 +7,15 @@
     </mat-card-title>
 
     <mat-card-content>
-      <p [innerText]="water.data"></p>
+      <p><b>Гарячая вода:</b></p>
+      {{water.data.hot1CounterName}}: {{water.data.hot1}}
+      <br>
+      {{water.data.hot2CounterName}}: {{water.data.hot2}}
+
+      <p><b>Холодная вода:</b></p>
+      {{water.data.cold1CounterName}}: {{water.data.cold1}}
+      <br>
+      {{water.data.cold2CounterName}}: {{water.data.cold2}}
     </mat-card-content>
 
     <mat-card-actions>
