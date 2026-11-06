@@ -7,7 +7,7 @@
 ![RxJS](https://img.shields.io/badge/RxJS-6.5-B7178C?logo=reactivex&logoColor=white)
 ![Node.js](https://img.shields.io/badge/Node.js-12.x-339933?logo=node.js&logoColor=white)
 ![OAuth2](https://img.shields.io/badge/Auth-OAuth2%20implicit%20flow-black)
-![License](https://img.shields.io/badge/license-not%20specified-lightgrey)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
 An admin dashboard for the **Antropogenez** platform, built with Angular. It signs users in through a separate OAuth2 authorization server and manages content stored in the Antropogenez REST API: articles, featured article links, and utility (water meter) readings.
 
@@ -204,4 +204,4 @@ Every push to `master` runs [`deploy.yml`](.github/workflows/deploy.yml). It ins
 
 ## License
 
-No license has been specified for this project yet. All rights reserved by the author unless a `LICENSE` file is added.
+This project is licensed under the [MIT License](LICENSE).
