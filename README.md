@@ -202,6 +202,13 @@ Every push to `master` runs [`deploy.yml`](.github/workflows/deploy.yml). It ins
 
 7. Open `http://<your-server-ip>`. Logs are in `/var/log/apache2/error.log`.
 
+## Feedback and contributing
+
+- **Bugs and feature requests:** open an issue at <https://github.com/ptitsynamv/antropogenez-dashboard/issues>.
+- **Contributing:** see [CONTRIBUTING.md](CONTRIBUTING.md) for the pull request process, coding requirements, and test policy.
+- **Security issues:** don't open a public issue. Follow [SECURITY.md](SECURITY.md) to report them privately.
+- **Release notes:** see [CHANGELOG.md](CHANGELOG.md).
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
